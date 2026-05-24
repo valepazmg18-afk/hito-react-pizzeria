@@ -6,9 +6,9 @@ const CartProvider = ({children}) => {
     const [cart, setCart] = useState([]);
     
     const addToCart = (pizza) => {
-        const pizzaExist = cart.find(p => p.id === pizza.id);
+        const pizzaExist = cart.find(p => p && p.id === pizza.id);
         if (pizzaExist) {
-           const updatedCart = cart.map((p) => {
+           const updatedCart = cart.filter(p => p).map(p => {
             p.id === pizza.id ? {...p, cantidad: p.cantidad + 1} : p;
            });
            setCart(updatedCart);
@@ -18,20 +18,21 @@ const CartProvider = ({children}) => {
     };
 
     const increase = (id) => {
-        const updatedCart = cart.map(p =>
+        const updatedCart = cart.filter(p => p).map(p =>
            p.id === id ? {...p, cantidad: p.cantidad + 1} : p
         );
         setCart(updatedCart);
     };
 
     const decrease = (id) => {
-        const updatedCart = cart.map(p =>
+        const updatedCart = cart.filter(p => p).map(p =>
            p.id === id ? {...p, cantidad: p.cantidad - 1} : p
         ).filter(p => p.cantidad > 0);
         setCart(updatedCart);
     };
 
-    const total = cart.reduce((acc, p) => acc + p.price * p.cantidad, 0);
+    
+    const total = cart.reduce((acc, p) => p ? acc + p.price * p.cantidad : acc, 0);
 
 
 

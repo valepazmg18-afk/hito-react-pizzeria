@@ -17,7 +17,7 @@ console.log(cart);
         <h1>Carrito de Compras</h1>
         <div className="row my-5 justify-content-center">
           <div className="col-md-3">
-              {cart.map((p, id) => (
+              {cart.filter(p => p).map((p, id) => (
                 <div className="card mb-3" key={p.id}>
                   <p className="card-header">{p.name}</p>
                   <p>Cantidad: {p.cantidad}</p>
