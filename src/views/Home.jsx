@@ -6,11 +6,14 @@ import NavbarComponent from "../components/Navbar";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
+import { useContext } from 'react';
+import { CartContext } from '../Contexts/CartContext';
 
 
 export default function Home() {
 
   const [pizza, setPizzas] = useState([]);
+  const { addToCart } = useContext(CartContext);
 
   const getPizza = async () => {
     const res = await fetch('https://hito-react-pizzeria.onrender.com/api/pizzas');
@@ -43,10 +46,8 @@ export default function Home() {
                     <small className="text-muted">Ingredientes: {pizza.ingredients?.join(" , ")}</small>
                 </p>
                 <p>$ {pizza.price.toLocaleString("es-CL")}</p>
-                
-                <Link to={`/pizza/${pizza.id}`} >
-                  <button className="btn btn-dark">Comprar</button> 
-                </Link>
+              
+                  <button className="btn btn-dark" onClick={() => {console.log(pizza); addToCart(pizza)}}>Añadir al Carrito</button> 
               </div>
             </div>
             </div>

@@ -1,9 +1,12 @@
 import React from 'react';
 import { Navbar, Container, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { useContext } from 'react';
+import { CartContext } from '../Contexts/CartContext';
 
 export default function NavbarComponent() {
-        const total = 43730;
+        const { cart } = useContext(CartContext);
+        const {total} = useContext(CartContext);
         const token = false;
     return (
      <> 
@@ -24,7 +27,7 @@ export default function NavbarComponent() {
             )}
           </Nav>
           <Nav className="ms-auto">
-            <Nav.Link as={Link} to="/Cart" style={{border:"1px solid white", borderRadius:"5px"}}>🛒Carrito: ${total.toLocaleString('es-CL')}</Nav.Link>
+            <Nav.Link as={Link} to="/Cart" style={{border:"1px solid white", borderRadius:"5px"}}>🛒Carrito: ${total.toLocaleString("es-CL")}</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
