@@ -1,12 +1,17 @@
 import { useState } from 'react';
 import React from 'react';
 import { Nav, Navbar } from 'react-bootstrap';
-import NavbarComponent from '../components/Navbar';
+import { UserContext } from '../Contexts/UserContext';
+import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 
 
 function LoginForm() {
     const [email, setEmail] = useState("");
+    const { setToken } = useContext(UserContext);
     const [password, setPassword] = useState("");
+    const navigate = useNavigate();
     const handleChangeEmail = (evento) => {
         setEmail(evento);
     }
@@ -20,12 +25,13 @@ function LoginForm() {
         }
         console.log("Estoy enviando el form");
         alert("Sesión Iniciada");
+        setToken(true);
+        navigate("/");
         setEmail('');
         setPassword('');
     }
     return (
         <>
-        <NavbarComponent />
         <form className="LoginForm m-5 d-flex flex-column align-items-center" style={{backgroundColor:"#e65c00", color:"white", padding:"20px", borderRadius:"10px"}} action="" onSubmit={(evento) => handleSubmit(evento)}>
             <h2 className="mt-3">Mi cuenta</h2>
             

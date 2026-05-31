@@ -11,8 +11,8 @@ export default function CardPizza(props) {
     
 
     <Card
-        className="shadow display-flex flex-direction-column"
-        style={{ width: "20rem", height: "680px", gap: "10px" }}
+        className="shadow d-flex flex-column"
+        style={{ width: "100%", gap: "10px" }}
         
     >
         <Card.Img
@@ -31,17 +31,16 @@ export default function CardPizza(props) {
         <Card.Text style={{flexGrow: 1, minHeight: "80px", color: "#555",}}>
           {props.description}
         </Card.Text>
-        <Card.Text style={{flexGrow: 1, fontSize: "16px", color: "#555",}}>
+        <div style={{flexGrow: 1, fontSize: "16px", color: "#555",}}>
           <ul>{props.ingredients.map((ingredient, indice) => (
             <li key={indice} className="badge bg-dark text-white me-1" style={{fontSize: "12px",}}>
               {ingredient}
             </li>
           ))}</ul>
-          </Card.Text>
-            
-        <Link to={`/pizza/${pizza.id}`}>
-          Comprar
-        </Link>
+          </div>
+          <Link to={`/pizza/${props.id}`} className="btn btn-outline-dark">Ver Detalles</Link>
+        <button onClick={props.onAddToCart} className="btn btn-dark mt-auto">Añadir al Carrito</button>
+        
       </Card.Body>
       
     </Card>

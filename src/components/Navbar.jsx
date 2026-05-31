@@ -3,11 +3,12 @@ import { Navbar, Container, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useContext } from 'react';
 import { CartContext } from '../Contexts/CartContext';
+import { UserContext } from '../Contexts/UserContext';
 
 export default function NavbarComponent() {
         const { cart } = useContext(CartContext);
         const {total} = useContext(CartContext);
-        const token = false;
+        const { token, logout} = useContext(UserContext);
     return (
      <> 
       <Navbar bg="dark" data-bs-theme="dark">
@@ -22,7 +23,7 @@ export default function NavbarComponent() {
             ) : (
               <>
                 <Nav.Link as={Link} to="/profile" >🔒Profile</Nav.Link>
-                <Nav.Link as={Link} to="/loginform" >🔒Logout</Nav.Link>
+                <Nav.Link as={Link} to="/loginform" onClick={() => {console.log("click logout"); logout()}} >🔒Logout</Nav.Link>
               </>
             )}
           </Nav>

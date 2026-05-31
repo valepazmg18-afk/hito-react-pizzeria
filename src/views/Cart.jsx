@@ -1,18 +1,18 @@
 import React from "react";
 import CardPizza from "./CardPizza";
 import { useState } from "react";
-import NavbarComponent from "../components/Navbar";
 import {useContext} from 'react';
 import { CartContext } from '../Contexts/CartContext';
+import { UserContext } from '../Contexts/UserContext';
 
 
 export default function Cart() {
   const { cart, increase, decrease } = useContext(CartContext);
   const {total} = useContext(CartContext);
-console.log(cart);
+  console.log(cart);
+  const {token} = useContext(UserContext);
   return (
     <>
-    <NavbarComponent />
       <div className="container bg-dark text-white my-5 py-5 text-center" style={{borderRadius:"10px"}}>
         <h1>Carrito de Compras</h1>
         <div className="row my-5 justify-content-center">
@@ -29,6 +29,7 @@ console.log(cart);
           </div>
         </div>
         <h2>Total a pagar: ${total.toLocaleString("es-CL")}</h2>
+        <button className="btn btn-light" disabled={!token}>Finalizar Compra</button>
       </div>
     </>
   );
