@@ -8,14 +8,14 @@ import { UserContext } from '../Contexts/UserContext';
 export default function NavbarComponent() {
         const { cart } = useContext(CartContext);
         const {total} = useContext(CartContext);
-        const { token, logout} = useContext(UserContext);
+        const { user, logout} = useContext(UserContext);
     return (
      <> 
       <Navbar bg="dark" data-bs-theme="dark">
         <Container fluid>
           <Nav.Link as={Link} to="/" className="text-white px-4">🍕 Home</Nav.Link>
           <Nav className="me-auto gap-3">
-            {token == false ? (
+            {user == null ? (
               <>
                 <Nav.Link as={Link} to="/loginform">🔐Login</Nav.Link>
                 <Nav.Link as={Link} to="/registerpage">🔐Register</Nav.Link>

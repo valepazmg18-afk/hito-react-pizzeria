@@ -9,39 +9,32 @@ export default function RegisterPage() {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const navigate = useNavigate();
-    const { setToken } = useContext(UserContext);
+    const { register } = useContext(UserContext);
 
-    const handleSubmit = (evento) => {
+    const handleSubmit = async (evento) => {
         evento.preventDefault();
-        if(password.length < 6) {
-            alert("La contraseña debe tener al menos 6 caracteres");
-        }else if(password !== confirmPassword) {
-            alert("Las contraseñas no coinciden");
-        }else{
-            console.log("Estoy enviando el registro");
-            alert("Cuenta creada exitosamente");
-            setToken(true);
-            navigate("/");
+        if(!email || !password || !confirmPassword || password !== confirmPassword || password.length < 6) {
+            alert("Por favor, verifica que todos los campos esten completos, la contraseña debe tener al menos 6 caracteres");
+            return;
         }
-        setEmail('');
-        setPassword('');
-        setConfirmPassword('');
-    }
+         await register(email, password);
+        navigate("/"); 
+    };
     return (
         <>
         <form className="loginForm m-5 d-flex flex-column align-items-center" style={{backgroundColor: "#ffa366", padding:"20px", borderRadius:"10px"}} onSubmit={(evento) => handleSubmit(evento)}>
             <h2 className="mt-3">Crear una Cuenta</h2>
             <label htmlFor="email">Ingrese su correo electrónico</label>
             <br />
-            <input type="email" className="rounded" placeholder="ejemplo@email.com" value={email} onChange={(evento) => setEmail(evento.target.value)} />
+            <input type="email" className="rounded" placeholder="ejemplo@email.com" value={email} onChange={(e) => setEmail(e.target.value)} />
             <br />
             <label htmlFor="password">Ingrese su contraseña</label>
             <br />
-            <input type="password" className="rounded" placeholder="******" value={password} onChange={(evento) => setPassword(evento.target.value)} />
+            <input type="password" className="rounded" placeholder="******" value={password} onChange={(e) => setPassword(e.target.value)} />
             <br />
             <label htmlFor="confirmPassword">Confirme su contraseña</label>
             <br />
-            <input type="password" className="rounded" placeholder="******" value={confirmPassword} onChange={(evento) => setConfirmPassword(evento.target.value)} />
+            <input type="password" className="rounded" placeholder="******" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
             <br />
             <button className="btn btn-dark m-3" type="submit">Registrarse</button>
 

@@ -14,7 +14,8 @@ import { Nav } from 'react-bootstrap';
 import NavbarComponent from './components/Navbar';
 
 function App() {
-  const { token } = useContext(UserContext);
+  const { user } = useContext(UserContext);
+  console.log("user:", user);
 
   return (
     <>
@@ -22,10 +23,10 @@ function App() {
      <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/loginform" element={!token?<LoginForm /> : <Navigate to="/" />} />
-        <Route path="/registerpage" element={!token?<RegisterPage /> : <Navigate to="/" />} />
+        <Route path="/loginform" element={!user ? <LoginForm /> : <Navigate to="/" />} />
+        <Route path="/registerpage" element={!user ? <RegisterPage /> : <Navigate to="/" />} />
         <Route path="/pizza/:id" element={<Pizza />} />
-        <Route path="/profile" element={token ? <Profile /> : <Navigate to="/loginform" replace />} />
+        <Route path="/profile" element={user ? <Profile /> : <Navigate to="/loginform" replace />} />
         <Route path="*" element={<NotFound />} />
       </Routes> 
     </>
